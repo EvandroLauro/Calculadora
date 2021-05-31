@@ -3,37 +3,38 @@
         <title>Calculadora</title>
     </head>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="index.js"></script>
     <body>
         <div id="calculadora">
             <div id="visor">0</div>
             <div id="botoes">
                 <section class="flex">
                     <div class="botao">%</div>
-                    <div class="botao">AC</div>
-                    <div class="botao">C</div>
+                    <div onclick="limparTudo()" class="botao">AC</div>
+                    <div onclick="limpa()" class="botao">C</div>
                     <div class="botao">/</div>
                 </section>
                 <section class="flex">
-                    <div class="botao">7</div>
-                    <div class="botao">8</div>
-                    <div class="botao">9</div>
+                    <div onclick="enviaNumero('7')" class="botao">7</div>
+                    <div onclick="enviaNumero('8')" class="botao">8</div>
+                    <div onclick="enviaNumero('9')" class="botao">9</div>
                     <div class="botao">x</div>
                 </section>
                 <section class="flex">
-                    <div class="botao">4</div>
-                    <div class="botao">5</div>
-                    <div class="botao">6</div>
+                    <div onclick="enviaNumero('4')" class="botao">4</div>
+                    <div onclick="enviaNumero('5')" class="botao">5</div>
+                    <div onclick="enviaNumero('6')" class="botao">6</div>
                     <div class="botao">-</div>
                 </section>
                 <section class="flex">
-                    <div class="botao">1</div>
-                    <div class="botao">2</div>
-                    <div class="botao">3</div>
+                    <div onclick="enviaNumero('1')" class="botao">1</div>
+                    <div onclick="enviaNumero('2')" class="botao">2</div>
+                    <div onclick="enviaNumero('3')" class="botao">3</div>
                     <div class="botao">+</div>
                 </section>
                 <section class="flex">
                     <div class="botao">+/-</div>
-                    <div class="botao">0</div>
+                    <div onclick="enviaNumero(0)" class="botao">0</div>
                     <div class="botao">,</div>
                     <div class="botao">=</div>
                 </section>
