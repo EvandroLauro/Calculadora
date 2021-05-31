@@ -1,5 +1,5 @@
 {
-  "name": "Calculadora",
+  "name": "calculadora",
   "version": "1.0.0",
   "description": "<p align=\"center\">Calculadora Simples</p>",
   "main": "index.js",
