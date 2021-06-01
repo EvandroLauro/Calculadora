@@ -3,28 +3,29 @@ function atualizaVisor(numero) {
     document.getElementById("visor").innerHTML = numero
 }
 
-function enviaNumero(numero) {
-    let numeroVisor = document.getElementById("visor").innerHTML
-    let numeroVisorSemVirgula = numeroVisor.replace(",", "")
-    if (numeroVisorSemVirgula.length < 8) {
-        if (numero == 0 && numero == numeroVisor) {
-            atualizaVisor(0)
-        } else {
-            if (numeroVisor == 0) {
-                atualizaVisor(numero)
+var envia = {
+    numero : function(numero) {
+        let numeroVisor = document.getElementById("visor").innerHTML
+        let numeroVisorSemVirgula = numeroVisor.replace(",", "")
+        if (numeroVisorSemVirgula.length < 8) {
+            if (numero == 0 && numero == numeroVisor) {
+                atualizaVisor(0)
             } else {
-                atualizaVisor(numeroVisor + numero) 
+                if (numeroVisor == 0) {
+                    atualizaVisor(numero)
+                } else {
+                    atualizaVisor(numeroVisor + numero) 
+                }
             }
         }
+    },
+    virgula : function(virgula) {
+        let numeroVisor = document.getElementById("visor").innerHTML
+         if (numeroVisor.indexOf(virgula) == -1) {
+            atualizaVisor(numeroVisor + virgula)
+        }
     }
-}
-
-function enviaVirgula(virgula) {
-    let numeroVisor = document.getElementById("visor").innerHTML
-    if (numeroVisor.indexOf(virgula) == -1) {
-        atualizaVisor(numeroVisor + virgula)
-    }
-}
+};
 
 function limpaUltimo() {
     let numeroVisor = document.getElementById("visor").innerHTML
