@@ -41,4 +41,3 @@ function limpaUltimo() {
 function limparTudo() {
     atualizaVisor(0)
 }
-
