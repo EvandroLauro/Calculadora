@@ -5,7 +5,7 @@ const visor = {
     numero : function() {
         return document.getElementById("visor").innerHTML
     }
-}
+};
 
 const envia = {
     numero : function(numero) {
@@ -31,18 +31,20 @@ const envia = {
     }
 };
 
-function limpaUltimo() {
-    let numeroVisor = visor.numero()
-    if (numeroVisor.length == 1) {
+const limpar = {
+    ce : function() {
         visor.atualiza(0)
-    } else {
-        let numeroLength = numeroVisor.length
-        let tamanhanhoDoCorte = numeroLength - 1
-        let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
-        visor.atualiza(fatiado)
+    },
+    c : function() {
+        let numeroVisor = visor.numero()
+        if (numeroVisor.length == 1) {
+            visor.atualiza(0)
+        } else {
+            let numeroLength = numeroVisor.length
+            let tamanhanhoDoCorte = numeroLength - 1
+            let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+            visor.atualiza(fatiado)
+        }
     }
 }
 
-function limparTudo() {
-    visor.atualiza(0)
-}
