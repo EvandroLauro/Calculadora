@@ -1,40 +1,38 @@
-var numeroVisor = {
-    numVisor : "0"
-}
+
 
 function atualizaVisor(numero) {
     document.getElementById("visor").innerHTML = numero;
 }
 
 function enviaNumero(numero) {
-    if (numeroVisor.numVisor.length < 8) {
-        if (numero == "0" && numero == numeroVisor.numVisor) {
-            numeroVisor.numVisor = "0"
+    let numeroVisor = document.getElementById("visor").innerHTML
+    if (numeroVisor.length < 8) {
+        if (numero == 0 && numero == numeroVisor) {
+            numeroVisor = 0
         } else {
-            if (numeroVisor.numVisor == "0") {
-                numeroVisor.numVisor = numero
+            if (numeroVisor == 0) {
+                numeroVisor = numero
             } else {
-                numeroVisor.numVisor = numeroVisor.numVisor + numero 
+                numeroVisor = numeroVisor + numero 
             }
         }
-        atualizaVisor(numeroVisor.numVisor)
+        atualizaVisor(numeroVisor)
     }
 }
 
 function limpa() {
-    if (numeroVisor.numVisor.length == 1) {
-        atualizaVisor(numeroVisor.numVisor = "0")
+    let numeroVisor = document.getElementById("visor").innerHTML
+    if (numeroVisor.length == 1) {
+        atualizaVisor(0)
     } else {
-        let numero = numeroVisor.numVisor
-        let numeroLength =  numero.length
+        let numeroLength =  numeroVisor.length
         let tamanhanhoDoCorte = numeroLength - 1
-        let fatiado = numero.slice(0, tamanhanhoDoCorte)
-        atualizaVisor(numeroVisor.numVisor = fatiado)
+        let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+        atualizaVisor(fatiado)
     }
 }
 
 function limparTudo() {
-    document.getElementById("visor").innerHTML = 0
-    numeroVisor.numVisor = "0"
+    atualizaVisor(0)
 }
 
