@@ -1,44 +1,48 @@
-
-function atualizaVisor(numero) {
-    document.getElementById("visor").innerHTML = numero
+const visor = {
+    atualiza : function(numero) {
+        document.getElementById("visor").innerHTML = numero
+    },
+    numero : function() {
+        return document.getElementById("visor").innerHTML
+    }
 }
 
-var envia = {
+const envia = {
     numero : function(numero) {
-        let numeroVisor = document.getElementById("visor").innerHTML
+        let numeroVisor = visor.numero()
         let numeroVisorSemVirgula = numeroVisor.replace(",", "")
         if (numeroVisorSemVirgula.length < 8) {
             if (numero == 0 && numero == numeroVisor) {
-                atualizaVisor(0)
+                visor.atualiza(0)
             } else {
                 if (numeroVisor == 0) {
-                    atualizaVisor(numero)
+                    visor.atualiza(numero)
                 } else {
-                    atualizaVisor(numeroVisor + numero) 
+                    visor.atualiza(numeroVisor + numero) 
                 }
             }
         }
     },
     virgula : function(virgula) {
-        let numeroVisor = document.getElementById("visor").innerHTML
+        let numeroVisor = visor.numero()
          if (numeroVisor.indexOf(virgula) == -1) {
-            atualizaVisor(numeroVisor + virgula)
+            visor.atualiza(numeroVisor + virgula)
         }
     }
 };
 
 function limpaUltimo() {
-    let numeroVisor = document.getElementById("visor").innerHTML
+    let numeroVisor = visor.numero()
     if (numeroVisor.length == 1) {
-        atualizaVisor(0)
+        visor.atualiza(0)
     } else {
         let numeroLength = numeroVisor.length
         let tamanhanhoDoCorte = numeroLength - 1
         let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
-        atualizaVisor(fatiado)
+        visor.atualiza(fatiado)
     }
 }
 
 function limparTudo() {
-    atualizaVisor(0)
+    visor.atualiza(0)
 }
