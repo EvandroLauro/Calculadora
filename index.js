@@ -5,7 +5,8 @@ function atualizaVisor(numero) {
 
 function enviaNumero(numero) {
     let numeroVisor = document.getElementById("visor").innerHTML
-    if (numeroVisor.length < 8) {
+    let numeroVisorSemVirgula = numeroVisor.replace(",", "")
+    if (numeroVisorSemVirgula.length < 8) {
         if (numero == 0 && numero == numeroVisor) {
             atualizaVisor(0)
         } else {
@@ -18,7 +19,14 @@ function enviaNumero(numero) {
     }
 }
 
-function limpa() {
+function enviaVirgula(virgula) {
+    let numeroVisor = document.getElementById("visor").innerHTML
+    if (numeroVisor.indexOf(virgula) == -1) {
+        atualizaVisor(numeroVisor + virgula)
+    }
+}
+
+function limpaUltimo() {
     let numeroVisor = document.getElementById("visor").innerHTML
     if (numeroVisor.length == 1) {
         atualizaVisor(0)
