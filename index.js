@@ -2,14 +2,14 @@ const visor = {
     atualiza : function(numero) {
         document.getElementById("visor").innerHTML = numero
     },
-    numero : function() {
+    exibido : function() {
         return document.getElementById("visor").innerHTML
     }
 };
 
 const envia = {
     numero : function(numero) {
-        let numeroVisor = visor.numero()
+        let numeroVisor = visor.exibido()
         let numeroVisorSemVirgula = numeroVisor.replace(",", "")
         if (numeroVisorSemVirgula.length < 8) {
             if (numero == 0 && numero == numeroVisor) {
@@ -24,7 +24,7 @@ const envia = {
         }
     },
     virgula : function(virgula) {
-        let numeroVisor = visor.numero()
+        let numeroVisor = visor.exibido()
          if (numeroVisor.indexOf(virgula) == -1) {
             visor.atualiza(numeroVisor + virgula)
         }
@@ -36,7 +36,7 @@ const limpar = {
         visor.atualiza(0)
     },
     c : function() {
-        let numeroVisor = visor.numero()
+        let numeroVisor = visor.exibido()
         if (numeroVisor.length == 1) {
             visor.atualiza(0)
         } else {
