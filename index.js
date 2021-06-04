@@ -15,10 +15,9 @@ const visor = {
 
 const envia = {
     numero : function(numero) {
-        if (execucao.andamento == true) {
+        if (execucao.andamento == true && execucao.n2 == "") {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-                execucao.andamento = false
         } else {
             let numeroVisor = visor.exibido()
             let numeroVisorSemVirgula = numeroVisor.replace(",", "")
@@ -42,8 +41,16 @@ const envia = {
     },
     virgula : function(virgula) {
         let numeroVisor = visor.exibido()
-         if (numeroVisor.indexOf(virgula) == -1) {
-            visor.atualiza(numeroVisor + virgula)
+        if (execucao.andamento == false) {
+            if (numeroVisor.indexOf(virgula) == -1) {
+                visor.atualiza(numeroVisor + virgula)
+                execucao.n1 = numeroVisor + virgula
+            }
+        } else {
+            if (numeroVisor.indexOf(virgula) == -1) {
+                visor.atualiza(numeroVisor + virgula)
+                execucao.n2 = numeroVisor + virgula
+            }
         }
     }
 };
@@ -56,14 +63,31 @@ const limpar = {
         execucao.n2 = ""
     },
     ce : function() {
-        let numeroVisor = visor.exibido()
-        if (numeroVisor.length == 1) {
-            visor.atualiza(0)
-        } else {
-            let numeroLength = numeroVisor.length
-            let tamanhanhoDoCorte = numeroLength - 1
-            let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
-            visor.atualiza(fatiado)
+        if (execucao.n2 != "") {
+            let numeroVisor = visor.exibido()
+            if (numeroVisor.length == 1) {
+                visor.atualiza(0)
+                execucao.n2 = ""
+                execucao. andamento = true
+            } else {
+                let numeroLength = numeroVisor.length
+                let tamanhanhoDoCorte = numeroLength - 1
+                let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+                visor.atualiza(fatiado)
+                execucao.n2 = fatiado
+            }
+        } else if (execucao.n2 == "" && execucao.andamento == false) {
+            let numeroVisor = visor.exibido()
+            if (numeroVisor.length == 1) {
+                visor.atualiza(0)
+                execucao.n1 = ""
+            } else {
+                let numeroLength = numeroVisor.length
+                let tamanhanhoDoCorte = numeroLength - 1
+                let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+                visor.atualiza(fatiado)
+                execucao.n1 = fatiado
+            }
         }
     }
 };
@@ -75,22 +99,5 @@ function operacao(operador) {
         execucao.n1 = numeroVisor + operador
     } 
     
-    /*
-    if (numeroVisorSemVirgula != 0) {
-        if (execucao.n1 == "") {
-            execucao.n1 = numeroVisor + operador
-            visor.atualiza(0)
-            console.log(execucao.n1)
-        } else if (execucao.n2 == ""){
-            execucao.n2 = numeroVisor
-            let resultado = eval(execucao.n1 + execucao.n2)
-            execucao.n1 = resultado
-            execucao.n2 = ""
-            visor.atualiza(resultado)
-            console.log("visor", visor.exibido())
-            console.log("resultado", resultado)
-        }
-    }
-    */
 }
 
