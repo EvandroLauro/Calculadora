@@ -17,11 +17,11 @@ const envia = {
     numero : function(numero) {
         let numeroVisor = visor.exibido()
         let numeroVisorSemVirgula = numeroVisor.replace(",", "")
-        if (execucao.andamento == true && execucao.n2 == "" || execucao.andamento == true && numero.visor == 0) {
-                visor.atualiza(numero)
-                execucao.n2 = numero
-        } else {
-            if (numeroVisorSemVirgula.length < 8) {
+        if (numeroVisorSemVirgula.length < 8) {
+            if (execucao.andamento == true && execucao.n2 == "" || execucao.andamento == true && numeroVisor == 0) {
+                    visor.atualiza(numero)
+                    execucao.n2 = numero
+            } else {
                 if (numero == 0 && numero == numeroVisor) {
                     visor.atualiza(0)
                 } else {
@@ -35,7 +35,7 @@ const envia = {
                         visor.atualiza(numeroVisor + numero)
                         execucao.n1 = numeroVisor + numero
                     }
-                }
+                }      
             }
         }
     },
