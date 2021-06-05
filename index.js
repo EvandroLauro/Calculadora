@@ -15,12 +15,12 @@ const visor = {
 
 const envia = {
     numero : function(numero) {
-        if (execucao.andamento == true && execucao.n2 == "") {
+        let numeroVisor = visor.exibido()
+        let numeroVisorSemVirgula = numeroVisor.replace(",", "")
+        if (execucao.andamento == true && execucao.n2 == "" || execucao.andamento == true && numero.visor == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
         } else {
-            let numeroVisor = visor.exibido()
-            let numeroVisorSemVirgula = numeroVisor.replace(",", "")
             if (numeroVisorSemVirgula.length < 8) {
                 if (numero == 0 && numero == numeroVisor) {
                     visor.atualiza(0)
@@ -97,7 +97,7 @@ function operacao(operador) {
         execucao. andamento = true
         let numeroVisor = visor.exibido()
         execucao.n1 = numeroVisor + operador
-    } 
-    
+    }
 }
+
 
