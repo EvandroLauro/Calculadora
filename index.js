@@ -17,20 +17,23 @@ const envia = {
     numero : function(numero) {
         let numeroVisor = visor.exibido()
         let numeroVisorSemVirgula = numeroVisor.replace(",", "")
-        if (numeroVisorSemVirgula.length < 8) {
-            if (execucao.andamento == true && execucao.n2 == "" || execucao.andamento == true && numeroVisor == 0) {
-                visor.atualiza(numero)
-                execucao.n2 = numero
-            } else if (execucao.n2 != "") {
-                visor.atualiza(numeroVisor + numero)
-                execucao.n2 = numeroVisor + numero
-            } else if (numeroVisor == 0) {
+        if (numeroVisorSemVirgula.length < 8) { 
+            if (execucao.andamento == false && numeroVisor == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
-            } else {
+            } else if (execucao.andamento == false) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
-            }      
+            } else if (execucao.andamento == true && execucao.n2 == "") {
+                visor.atualiza(numero)
+                execucao.n2 = numero
+            } else if (execucao.andamento == true && numeroVisor == 0) {
+                visor.atualiza(numero)
+                execucao.n2 = numero
+            } else if (execucao.andamento == true && execucao.n2 != "") {
+                visor.atualiza(numeroVisor + numero)
+                execucao.n2 = numeroVisor + numero
+            }   
         }
     },
     virgula : function(virgula) {
