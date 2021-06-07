@@ -24,10 +24,10 @@ const envia = {
             } else if (execucao.andamento == false) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
-            } else if (execucao.andamento == true && execucao.n2 == "") {
+            } else if (execucao.andamento == true && numeroVisor == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && numeroVisor == 0) {
+            } else if (execucao.andamento == true && execucao.n2 == "") {
                 visor.atualiza(numero)
                 execucao.n2 = numero
             } else if (execucao.andamento == true && execucao.n2 != "") {
