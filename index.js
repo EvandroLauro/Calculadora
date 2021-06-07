@@ -44,7 +44,11 @@ const envia = {
                 execucao.n1 = numeroVisor + virgula
             }
         } else {
-            if (numeroVisor.indexOf(virgula) == -1) {
+            if (execucao.n2 == "") {
+                let numero = 0
+                visor.atualiza(numero + virgula)
+                execucao.n2 = numero + virgula
+            } else if (numeroVisor.indexOf(virgula) == -1) {
                 visor.atualiza(numeroVisor + virgula)
                 execucao.n2 = numeroVisor + virgula
             }
@@ -60,20 +64,7 @@ const limpar = {
         execucao.n2 = ""
     },
     ce : function() {
-        if (execucao.n2 != "") {
-            let numeroVisor = visor.exibido()
-            if (numeroVisor.length == 1) {
-                visor.atualiza(0)
-                execucao.n2 = ""
-                execucao. andamento = true
-            } else {
-                let numeroLength = numeroVisor.length
-                let tamanhanhoDoCorte = numeroLength - 1
-                let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
-                visor.atualiza(fatiado)
-                execucao.n2 = fatiado
-            }
-        } else if (execucao.n2 == "" && execucao.andamento == false) {
+        if (execucao.andamento == false) {
             let numeroVisor = visor.exibido()
             if (numeroVisor.length == 1) {
                 visor.atualiza(0)
@@ -85,7 +76,19 @@ const limpar = {
                 visor.atualiza(fatiado)
                 execucao.n1 = fatiado
             }
-        }
+        } else if (execucao.andamento == true) {
+            let numeroVisor = visor.exibido()
+            if (numeroVisor.length == 1) {
+                visor.atualiza(0)
+                execucao.n2 = ""
+            } else {
+                let numeroLength = numeroVisor.length
+                let tamanhanhoDoCorte = numeroLength - 1
+                let fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+                visor.atualiza(fatiado)
+                execucao.n2 = fatiado
+            }
+        } 
     }
 };
 
