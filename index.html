@@ -10,8 +10,8 @@
             <div id="botoes">
                 <section class="flex">
                     <div class="botao">%</div>
-                    <div onclick="limpar.ce()" class="botao">CE</div>
                     <div onclick="limpar.c()" class="botao">C</div>
+                    <div onclick="limpar.ce()" class="botao">CE</div>
                     <div class="botao">/</div>
                 </section>
                 <section class="flex">
@@ -30,16 +30,16 @@
                     <div onclick="envia.numero(1)" class="botao">1</div>
                     <div onclick="envia.numero(2)" class="botao">2</div>
                     <div onclick="envia.numero(3)" class="botao">3</div>
-                    <div class="botao">+</div>
+                    <div onclick="operadores.soma('+')" class="botao">+</div>
                 </section>
                 <section class="flex">
                     <div class="botao">+/-</div>
                     <div onclick="envia.numero(0)" class="botao">0</div>
-                    <div onclick="envia.virgula(',')"class="botao">,</div>
-                    <div class="botao">=</div>
+                    <div onclick="envia.virgula(',')" class="botao">,</div>
+                    <div onclick="operadores.igual('=')" class="botao">=</div>
                 </section>
             </div>
         </div>
 
     </body>
-</html> 
+</html>
