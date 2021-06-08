@@ -1,7 +1,9 @@
 const execucao = {
     andamento : false,
     n1 : "",
-    n2 : ""
+    n2 : "",
+    operacao : ""
+
 }
 
 const visor = {
@@ -61,10 +63,11 @@ const limpar = {
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
+        execucao.operacao = ""
     },
     ce : function() {
+        let numeroVisor = visor.exibido()
         if (execucao.andamento == false) {
-            let numeroVisor = visor.exibido()
             if (numeroVisor.length == 1) {
                 visor.atualiza(0)
                 execucao.n1 = ""
@@ -73,7 +76,6 @@ const limpar = {
                 execucao.n1 = fatiar(numeroVisor)
             }
         } else if (execucao.andamento == true) {
-            let numeroVisor = visor.exibido()
             if (numeroVisor.length == 1) {
                 visor.atualiza(0)
                 execucao.n2 = ""
@@ -82,19 +84,25 @@ const limpar = {
                 execucao.n2 = fatiar(numeroVisor)
             }
         }
-        function fatiar(numeroVisor) {
-            let numeroLength = numeroVisor.length
+        function fatiar(numero) {
+            let numeroLength = numero.length
             let tamanhanhoDoCorte = numeroLength - 1
-            return fatiado = numeroVisor.slice(0, tamanhanhoDoCorte)
+            return fatiado = numero.slice(0, tamanhanhoDoCorte)
         }
     }
 };
 
-function operacao(operador) {
-    if (execucao.n2 == "") {
-        execucao. andamento = true
-        let numeroVisor = visor.exibido()
-        execucao.n1 = numeroVisor + operador
+const operadores = {
+    soma : function(operador) {
+        if (execucao.andamento == false && operador == "+") {
+            execucao.andamento = true
+            execucao.operacao = operador
+        }
+    },
+    igual : function(operador) {
+        if (execucao.andamento == true && operador == "=" && execucao.n2 != "") {
+            console.log(execucao.n1, execucao.operacao, execucao.n2)
+        }
     }
 }
 
