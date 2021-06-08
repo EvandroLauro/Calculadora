@@ -67,27 +67,28 @@ const limpar = {
     },
     ce : function() {
         let numeroVisor = visor.exibido()
+        let fatiado = fatiar(numeroVisor)
         if (execucao.andamento == false) {
             if (numeroVisor.length == 1) {
                 visor.atualiza(0)
                 execucao.n1 = ""
             } else {
-                visor.atualiza(fatiar(numeroVisor))
-                execucao.n1 = fatiar(numeroVisor)
+                visor.atualiza(fatiado)
+                execucao.n1 = fatiado
             }
         } else if (execucao.andamento == true) {
             if (numeroVisor.length == 1) {
                 visor.atualiza(0)
                 execucao.n2 = ""
             } else {
-                visor.atualiza(fatiar(numeroVisor))
-                execucao.n2 = fatiar(numeroVisor)
+                visor.atualiza(fatiado)
+                execucao.n2 = fatiado
             }
         }
         function fatiar(numero) {
             let numeroLength = numero.length
             let tamanhanhoDoCorte = numeroLength - 1
-            return fatiado = numero.slice(0, tamanhanhoDoCorte)
+            return numero.slice(0, tamanhanhoDoCorte)
         }
     }
 };
