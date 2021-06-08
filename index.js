@@ -2,7 +2,7 @@ const execucao = {
     andamento : false,
     n1 : "",
     n2 : "",
-    operacao : ""
+    simbolo : ""
 
 }
 
@@ -18,9 +18,9 @@ const visor = {
 const envia = {
     numero : function(numero) {
         let numeroVisor = visor.exibido()
-        let numeroVisorSemVirgula = numeroVisor.replace(",", "")
-        if (numeroVisorSemVirgula.length < 8) { 
-            if (execucao.andamento == false && numeroVisor == 0) {
+        let numeroVisorSemPonto = numeroVisor.replace(".", "")
+        if (numeroVisorSemPonto.length < 8) { 
+            if (execucao.andamento == false && numeroVisor == "0") {
                 visor.atualiza(numero)
                 execucao.n1 = numero
             } else if (execucao.andamento == false) {
@@ -29,7 +29,7 @@ const envia = {
             } else if (execucao.andamento == true && execucao.n2 == "") {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && numeroVisor == 0) {
+            } else if (execucao.andamento == true && numeroVisor == "0") {
                 visor.atualiza(numero)
                 execucao.n2 = numero
             } else if (execucao.andamento == true && execucao.n2 != "") {
@@ -38,20 +38,20 @@ const envia = {
             }   
         }
     },
-    virgula : function(virgula) {
+    ponto : function(ponto) {
         let numeroVisor = visor.exibido()
         if (execucao.andamento == false) {
-            if (numeroVisor.indexOf(virgula) == -1) {
-                visor.atualiza(numeroVisor + virgula)
-                execucao.n1 = numeroVisor + virgula
+            if (numeroVisor.indexOf(ponto) == -1) {
+                visor.atualiza(numeroVisor + ponto)
+                execucao.n1 = numeroVisor + ponto
             }
         } else {
             if (execucao.n2 == "") {
-                visor.atualiza(0 + virgula)
-                execucao.n2 = 0 + virgula
-            } else if (numeroVisor.indexOf(virgula) == -1) {
-                visor.atualiza(numeroVisor + virgula)
-                execucao.n2 = numeroVisor + virgula
+                visor.atualiza("0" + ponto)
+                execucao.n2 = "0" + ponto
+            } else if (numeroVisor.indexOf(ponto) == -1) {
+                visor.atualiza(numeroVisor + ponto)
+                execucao.n2 = numeroVisor + ponto
             }
         }
     }
@@ -59,7 +59,7 @@ const envia = {
 
 const limpar = {
     c : function() {
-        visor.atualiza(0)
+        visor.atualiza("0")
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
@@ -70,7 +70,7 @@ const limpar = {
         let fatiado = fatiar(numeroVisor)
         if (execucao.andamento == false) {
             if (numeroVisor.length == 1) {
-                visor.atualiza(0)
+                visor.atualiza("0")
                 execucao.n1 = ""
             } else {
                 visor.atualiza(fatiado)
@@ -78,33 +78,53 @@ const limpar = {
             }
         } else if (execucao.andamento == true) {
             if (numeroVisor.length == 1) {
-                visor.atualiza(0)
+                visor.atualiza("0")
                 execucao.n2 = ""
             } else {
                 visor.atualiza(fatiado)
                 execucao.n2 = fatiado
             }
         }
-        function fatiar(numero) {
-            let numeroLength = numero.length
-            let tamanhanhoDoCorte = numeroLength - 1
-            return numero.slice(0, tamanhanhoDoCorte)
-        }
     }
 };
 
-const operadores = {
-    soma : function(operador) {
-        if (execucao.andamento == false && operador == "+") {
+const operacao = {
+    matematica : function(operador) {
+        if (execucao.andamento == false) {
             execucao.andamento = true
-            execucao.operacao = operador
+            execucao.simbolo = operador
         }
     },
-    igual : function(operador) {
-        if (execucao.andamento == true && operador == "=" && execucao.n2 != "") {
-            console.log(execucao.n1, execucao.operacao, execucao.n2)
+    igual : function() {
+        if (execucao.andamento == true && execucao.n2 != "") {
+            let x = parses(execucao.n1)
+            let y = parses(execucao.n2)
+            if (execucao.simbolo == "+") {
+                console.log(x + y)
+            } else if (execucao.simbolo == "-") {
+                console.log(x - y)
+            } else if (execucao.simbolo == "*") {
+                console.log(x * y)
+            } else if (execucao.simbolo == "/") {
+                console.log(x / y)
+            }
         }
     }
 }
 
+function parses(numero) {
+    if (numero.indexOf(".") == -1) {
+        return parseInt(numero)
+    } else if (numero.indexOf(".") == numero.length - 1) {
+        return parseInt(fatiar(numero))
+    } else {
+        return parseFloat(numero)
+    }
+}
+
+function fatiar(numeroVisor) {
+    let numeroLength = numeroVisor.length
+    let tamanhanhoDoCorte = numeroLength - 1
+    return numeroVisor.slice(0, tamanhanhoDoCorte)
+}
 

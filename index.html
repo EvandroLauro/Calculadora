@@ -12,31 +12,31 @@
                     <div class="botao">%</div>
                     <div onclick="limpar.c()" class="botao">C</div>
                     <div onclick="limpar.ce()" class="botao">CE</div>
-                    <div class="botao">/</div>
+                    <div onclick="operacao.matematica('/')" class="botao">/</div>
                 </section>
                 <section class="flex">
-                    <div onclick="envia.numero(7)" class="botao">7</div>
-                    <div onclick="envia.numero(8)" class="botao">8</div>
-                    <div onclick="envia.numero(9)" class="botao">9</div>
-                    <div class="botao">x</div>
+                    <div onclick="envia.numero('7')" class="botao">7</div>
+                    <div onclick="envia.numero('8')" class="botao">8</div>
+                    <div onclick="envia.numero('9')" class="botao">9</div>
+                    <div onclick="operacao.matematica('*')"class="botao">x</div>
                 </section>
                 <section class="flex">
-                    <div onclick="envia.numero(4)" class="botao">4</div>
-                    <div onclick="envia.numero(5)" class="botao">5</div>
-                    <div onclick="envia.numero(6)" class="botao">6</div>
-                    <div class="botao">-</div>
+                    <div onclick="envia.numero('4')" class="botao">4</div>
+                    <div onclick="envia.numero('5')" class="botao">5</div>
+                    <div onclick="envia.numero('6')" class="botao">6</div>
+                    <div onclick="operacao.matematica('-')" class="botao">-</div>
                 </section>
                 <section class="flex">
-                    <div onclick="envia.numero(1)" class="botao">1</div>
-                    <div onclick="envia.numero(2)" class="botao">2</div>
-                    <div onclick="envia.numero(3)" class="botao">3</div>
-                    <div onclick="operadores.soma('+')" class="botao">+</div>
+                    <div onclick="envia.numero('1')" class="botao">1</div>
+                    <div onclick="envia.numero('2')" class="botao">2</div>
+                    <div onclick="envia.numero('3')" class="botao">3</div>
+                    <div onclick="operacao.matematica('+')" class="botao">+</div>
                 </section>
                 <section class="flex">
                     <div class="botao">+/-</div>
-                    <div onclick="envia.numero(0)" class="botao">0</div>
-                    <div onclick="envia.virgula(',')" class="botao">,</div>
-                    <div onclick="operadores.igual('=')" class="botao">=</div>
+                    <div onclick="envia.numero('0')" class="botao">0</div>
+                    <div onclick="envia.ponto('.')" class="botao">.</div>
+                    <div onclick="operacao.igual('=')" class="botao">=</div>
                 </section>
             </div>
         </div>
