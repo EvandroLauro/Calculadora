@@ -57,17 +57,21 @@ const envia = {
         let numeroVisor = visor.exibido()
         if (execucao.andamento == false) {
             if (execucao.n1 == "") {
+                execucao.total = execucao.total + 1
                 visor.atualiza("0" + ponto)
                 execucao.n1 = "0" + ponto
             } else if (numeroVisor.indexOf(ponto) == -1) {
+                execucao.total = execucao.total + 1
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n1 = numeroVisor + ponto
             }
         } else {
             if (execucao.n2 == "") {
+                execucao.total = execucao.total + 1
                 visor.atualiza("0" + ponto)
                 execucao.n2 = "0" + ponto
             } else if (numeroVisor.indexOf(ponto) == -1) {
+                execucao.total = execucao.total + 1
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n2 = numeroVisor + ponto
             }
