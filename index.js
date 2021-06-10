@@ -51,13 +51,28 @@ const envia = {
                 execucao.n2 = numeroVisor + numero
             }
         }
-        function resposta() {
-            if (execucao.resposta == true) {
-                execucao.resposta = false
-                document.getElementById("visor").innerHTML = ''
+    },
+    ponto : function(ponto) {
+        resposta()
+        let numeroVisor = visor.exibido()
+        if (execucao.andamento == false) {
+            if (execucao.n1 == "") {
+                visor.atualiza("0" + ponto)
+                execucao.n1 = "0" + ponto
+            } else if (numeroVisor.indexOf(ponto) == -1) {
+                visor.atualiza(numeroVisor + ponto)
+                execucao.n1 = numeroVisor + ponto
+            }
+        } else {
+            if (execucao.n2 == "") {
+                visor.atualiza("0" + ponto)
+                execucao.n2 = "0" + ponto
+            } else if (numeroVisor.indexOf(ponto) == -1) {
+                visor.atualiza(numeroVisor + ponto)
+                execucao.n2 = numeroVisor + ponto
             }
         }
-    }   
+    }
 };
 
 const limpar = {
@@ -149,4 +164,11 @@ function fatiar(numeroVisor) {
     let numeroLength = numeroVisor.length
     let tamanhanhoDoCorte = numeroLength - 1
     return numeroVisor.slice(0, tamanhanhoDoCorte)
+}
+
+function resposta() {
+    if (execucao.resposta == true) {
+        execucao.resposta = false
+        document.getElementById("visor").innerHTML = ''
+    }
 }
