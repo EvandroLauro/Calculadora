@@ -22,11 +22,8 @@ const visor = {
 
 const envia = {
     numero : function(numero) {
-        if (execucao.total < 8) {
-            if (execucao.resposta == true) {
-                execucao.resposta = false
-                document.getElementById("visor").innerHTML = ''
-            }
+        if (execucao.total < 8) {           
+            resposta()
             let numeroVisor = visor.exibido()
             if (execucao.andamento == false && numeroVisor == "") {
                 execucao.total = execucao.total + 1
@@ -52,6 +49,12 @@ const envia = {
                 execucao.total = execucao.total + 1
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
+            }
+        }
+        function resposta() {
+            if (execucao.resposta == true) {
+                execucao.resposta = false
+                document.getElementById("visor").innerHTML = ''
             }
         }
     }   
