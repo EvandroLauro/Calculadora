@@ -116,6 +116,11 @@ const operacao = {
             execucao.andamento = true
             execucao.simbolo = operador
             execucao.total = 0
+        } else if (execucao.resposta == true) {
+            execucao.n1 = visor.exibido()
+            execucao.andamento = true
+            execucao.simbolo = operador
+            execucao.total = 0
         }
     },
     igual : function() {
@@ -136,7 +141,7 @@ const operacao = {
                 let numero = x / y
                 reset(numero)
             }
-        }
+        } 
         function parses(numero) {
             if (typeof numero === 'number') {
                 return numero
