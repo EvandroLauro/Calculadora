@@ -2,6 +2,7 @@ const execucao = {
     andamento : false,
     n1 : "",
     n2 : "",
+    n3 : "",
     simbolo : "",
     total : 0,
     resposta : false
@@ -76,6 +77,7 @@ const limpar = {
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
+        execucao.n3 = ""
         execucao.simbolo = ""
         execucao.total = 0
         execucao.resposta = false
@@ -124,14 +126,20 @@ const operacao = {
         }
     },
     igual : function() {
-        if (execucao.andamento == true && execucao.n2 != "") {
+        if (execucao.andamento == true && execucao.n2 != "" || execucao.resposta == true) {
+            
+            if (execucao.resposta == true) {
+                execucao.n1 = visor.exibido()
+                execucao.n2 = execucao.n3 
+                execucao.n3 = ""
+            }
+
             let x = parses(execucao.n1)
             let y = parses(execucao.n2)
             if (execucao.simbolo == "+") {
                 let numero = x + y
                 reset(numero)
             } else if (execucao.simbolo == "-") {
-                console.log(x, y)
                 let numero = x - y
                 reset(numero)
             } else if (execucao.simbolo == "*") {
@@ -157,8 +165,8 @@ const operacao = {
             visor.atualiza(numero)
             execucao.andamento = false
             execucao.n1 = ""
+            execucao.n3 = execucao.n2
             execucao.n2 = ""
-            execucao.simbolo = ""
             execucao.total = 0
             execucao.resposta = true
         }
