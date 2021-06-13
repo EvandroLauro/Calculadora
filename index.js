@@ -119,21 +119,17 @@ const operacao = {
             execucao.simbolo = operador
             execucao.total = 0
         } else if (execucao.resposta == true) {
-            execucao.n1 = visor.exibido()
             execucao.andamento = true
+            execucao.n1 = visor.exibido()
+            execucao.n3 = ""
             execucao.simbolo = operador
             execucao.total = 0
+            execucao.resposta = false
         }
     },
     igual : function() {
-        if (execucao.andamento == true && execucao.n2 != "" || execucao.resposta == true) {
-            
-            if (execucao.resposta == true) {
-                execucao.n1 = visor.exibido()
-                execucao.n2 = execucao.n3 
-                execucao.n3 = ""
-            }
-
+        if (execucao.n1 != "" && execucao.simbolo != "" || execucao.andamento == true && execucao.n2 != "" || execucao.resposta == true) {
+            logicaObscuraDaFunctionIgual()
             let x = parses(execucao.n1)
             let y = parses(execucao.n2)
             if (execucao.simbolo == "+") {
@@ -149,7 +145,16 @@ const operacao = {
                 let numero = x / y
                 reset(numero)
             }
-        } 
+        }
+        function logicaObscuraDaFunctionIgual() {
+            if (execucao.n2 == "" && execucao.resposta == false) {
+                execucao.n2 = execucao.n1
+            } else if (execucao.resposta == true) {
+                execucao.n1 = visor.exibido()
+                execucao.n2 = execucao.n3 
+                execucao.n3 = ""
+            }
+        }
         function parses(numero) {
             if (typeof numero === 'number') {
                 return numero
