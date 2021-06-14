@@ -2,7 +2,7 @@ const execucao = {
     andamento : false,
     n1 : "",
     n2 : "",
-    n3 : "",
+    n4 : "",
     simbolo : "",
     total : 0,
     resposta : false
@@ -27,7 +27,17 @@ const envia = {
         if (execucao.total < 8) {           
             resposta()
             let numeroVisor = visor.exibido()
-            if (execucao.andamento == false && numeroVisor == "") {
+            if (execucao.n4 != "" && execucao.andamento == false) {
+                if (execucao.total == 0) {
+                    execucao.resposta = false
+                    visor.atualiza(numero)
+                    execucao.n1 = numero
+                    execucao.n2 = execucao.n4
+                } else if (execucao.total != 0) {
+                    visor.atualiza(numeroVisor + numero)
+                    execucao.n1 = numeroVisor + numero
+                }
+            } else if (execucao.andamento == false && numeroVisor == "") {
                 visor.atualiza(numero)
                 execucao.n1 = numero
             } else if (execucao.andamento == false && numero != 0 && execucao.total == 0) {
@@ -77,7 +87,7 @@ const limpar = {
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
-        execucao.n3 = ""
+        execucao.n4 = ""
         execucao.simbolo = ""
         execucao.total = 0
         execucao.resposta = false
@@ -90,7 +100,7 @@ const limpar = {
             if (execucao.andamento == false) {
                 if (numeroVisor.length == 1) {
                     visor.atualiza("0")
-                    execucao.n1 = ""
+                    execucao.n1 = "0"
                     execucao.total = execucao.total - 2
                 } else {
                     visor.atualiza(fatiado)
@@ -100,7 +110,7 @@ const limpar = {
             } else if (execucao.andamento == true) {
                 if (numeroVisor.length == 1) {
                     visor.atualiza("0")
-                    execucao.n2 = ""
+                    execucao.n2 = "0"
                     execucao.total = execucao.total - 2
                 } else {
                     visor.atualiza(fatiado)
@@ -121,7 +131,7 @@ const operacao = {
         } else if (execucao.resposta == true) {
             execucao.andamento = true
             execucao.n1 = visor.exibido()
-            execucao.n3 = ""
+            execucao.n4 = ""
             execucao.simbolo = operador
             execucao.total = 0
             execucao.resposta = false
@@ -151,8 +161,8 @@ const operacao = {
                 execucao.n2 = execucao.n1
             } else if (execucao.resposta == true) {
                 execucao.n1 = visor.exibido()
-                execucao.n2 = execucao.n3 
-                execucao.n3 = ""
+                execucao.n2 = execucao.n4 
+                execucao.n4 = ""
             }
         }
         function parses(numero) {
@@ -170,7 +180,7 @@ const operacao = {
             visor.atualiza(numero)
             execucao.andamento = false
             execucao.n1 = ""
-            execucao.n3 = execucao.n2
+            execucao.n4 = execucao.n2
             execucao.n2 = ""
             execucao.total = 0
             execucao.resposta = true
