@@ -2,7 +2,7 @@ const execucao = {
     andamento : false,
     n1 : "",
     n2 : "",
-    n4 : "",
+    n3 : "",
     simbolo : "",
     total : 0,
     resposta : false
@@ -11,6 +11,9 @@ const execucao = {
 const visor = {
     atualiza : function(numero) {
         if (execucao.resposta == false) {
+            execucao.total = execucao.total + 1
+            document.getElementById("visor").innerHTML = numero
+        } else if (execucao.resposta == true && execucao.n3 != "") {
             execucao.total = execucao.total + 1
             document.getElementById("visor").innerHTML = numero
         } else if (execucao.resposta == true) {
@@ -27,16 +30,13 @@ const envia = {
         if (execucao.total < 8) {           
             resposta()
             let numeroVisor = visor.exibido()
-            if (execucao.n4 != "" && execucao.andamento == false) {
-                if (execucao.total == 0) {
-                    execucao.resposta = false
-                    visor.atualiza(numero)
-                    execucao.n1 = numero
-                    execucao.n2 = execucao.n4
-                } else if (execucao.total != 0) {
-                    visor.atualiza(numeroVisor + numero)
-                    execucao.n1 = numeroVisor + numero
-                }
+            if (execucao.andamento == false && execucao.n3 != "" && execucao.total == 0) {
+                visor.atualiza(numero)
+                execucao.n1 = numero
+                execucao.n2 = execucao.n3
+            } else if (execucao.andamento == false && execucao.n3 != "" && execucao.total != 0) {
+                visor.atualiza(numeroVisor + numero)
+                execucao.n1 = numeroVisor + numero
             } else if (execucao.andamento == false && numeroVisor == "") {
                 visor.atualiza(numero)
                 execucao.n1 = numero
@@ -87,7 +87,7 @@ const limpar = {
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
-        execucao.n4 = ""
+        execucao.n3 = ""
         execucao.simbolo = ""
         execucao.total = 0
         execucao.resposta = false
@@ -131,7 +131,7 @@ const operacao = {
         } else if (execucao.resposta == true) {
             execucao.andamento = true
             execucao.n1 = visor.exibido()
-            execucao.n4 = ""
+            execucao.n3 = ""
             execucao.simbolo = operador
             execucao.total = 0
             execucao.resposta = false
@@ -161,8 +161,8 @@ const operacao = {
                 execucao.n2 = execucao.n1
             } else if (execucao.resposta == true) {
                 execucao.n1 = visor.exibido()
-                execucao.n2 = execucao.n4 
-                execucao.n4 = ""
+                execucao.n2 = execucao.n3 
+                execucao.n3 = ""
             }
         }
         function parses(numero) {
@@ -180,7 +180,7 @@ const operacao = {
             visor.atualiza(numero)
             execucao.andamento = false
             execucao.n1 = ""
-            execucao.n4 = execucao.n2
+            execucao.n3 = execucao.n2
             execucao.n2 = ""
             execucao.total = 0
             execucao.resposta = true
