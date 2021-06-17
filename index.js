@@ -30,20 +30,29 @@ const envia = {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
+            } else if (execucao.andamento == false && numeroVisor == "0.") {
+                visor.atualiza(numeroVisor + numero)
+                execucao.n1 = numeroVisor + numero
+                execucao.limite = execucao.limite + 1
             } else if (execucao.andamento == false && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
+
             } else if (execucao.andamento == true && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && numeroVisor == 0 && numero != 0) {
+            } else if (execucao.andamento == true && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
                 execucao.limite = execucao.limite + 1
             } else if (execucao.andamento == true && numero != 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
+                execucao.limite = execucao.limite + 1
+            } else if (execucao.andamento == true && numeroVisor == "0.") {
+                visor.atualiza(numeroVisor + numero)
+                execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
             } else if (execucao.andamento == true && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
@@ -55,24 +64,26 @@ const envia = {
     ponto : function(ponto) {
         let numeroVisor = visor.exibido()
         if (execucao.andamento == false) {
-            if (execucao.n1 == "") {
-                visor.atualiza("0" + ponto)
-                execucao.n1 = "0" + ponto
+            if (execucao.n1 == 0) {
+                visor.atualiza(0 + ponto)
+                execucao.n1 = 0 + ponto
                 execucao.limite = execucao.limite + 1
-            } else if (numeroVisor.indexOf(ponto) == -1) {
+            } else if (execucao.limite == 0) {
+                visor.atualiza(0 + ponto)
+                execucao.n1 = 0 + ponto
+                execucao.limite = execucao.limite + 1
+            }else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n1 = numeroVisor + ponto
-                execucao.limite = execucao.limite + 1
             }
         } else {
-            if (execucao.n2 == "") {
-                visor.atualiza("0" + ponto)
-                execucao.n2 = "0" + ponto
+            if (execucao.n2 == 0) {
+                visor.atualiza(0 + ponto)
+                execucao.n2 = 0 + ponto
                 execucao.limite = execucao.limite + 1
             } else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n2 = numeroVisor + ponto
-                execucao.limite = execucao.limite + 1
             }
         }
     }
