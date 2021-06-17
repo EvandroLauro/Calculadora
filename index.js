@@ -118,7 +118,7 @@ const operacao = {
     },
     igual : function() {
         if (execucao.n1 != "" && execucao.sinal != "") {
-            let {x, y} = reconfig.valores(execucao.n1, execucao.n2)
+            let {x, y} = reconfig.valores()
             if (execucao.sinal == "+") {
                 let numero = x + y
                 reconfig.igual(numero)
@@ -150,10 +150,10 @@ const reconfig = {
         execucao.n1 = numero
         execucao.limite = 0
    },
-   valores : function(n1, n2) {
-        if (n2 == 0) { n2 = n1 }
-        let x = parses(n1)                         
-        let y = parses(n2)
+   valores : function() {
+        if (execucao.n2 == 0) { execucao.n2 = execucao.n1 }
+        let x = parses(execucao.n1)                         
+        let y = parses(execucao.n2)
         return {x, y}         
    }
 
