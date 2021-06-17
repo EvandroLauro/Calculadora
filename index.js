@@ -1,6 +1,6 @@
 const execucao = {
     andamento : false,
-    n1 : "",
+    n1 : 0,
     n2 : 0,
     sinal : "",
     limite : 0,
@@ -19,7 +19,10 @@ const envia = {
     numero : function(numero) {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
-            if (execucao.andamento == false && numeroVisor == "") {
+            if (execucao.andamento == false && numero == 0 && execucao.limite == 0) {
+                visor.atualiza(numero)
+                execucao.n1 = numero
+            } else if (execucao.andamento == false && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
@@ -31,15 +34,17 @@ const envia = {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && execucao.n2 == "" && numero != 0) {
+            } else if (execucao.andamento == true && numero == 0 && execucao.limite == 0) {
+                visor.atualiza(numero)
+                execucao.n2 = numero
+            } else if (execucao.andamento == true && execucao.n2 == 0 && numero != 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
                 execucao.limite = execucao.limite + 1
             } else if (execucao.andamento == true && numero != 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-                execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && execucao.n2 != "") {
+            } else if (execucao.andamento == true && execucao.n2 != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
@@ -76,8 +81,8 @@ const limpar = {
     ce : function() {
         visor.atualiza(0)
         execucao.andamento = false
-        execucao.n1 = ""
-        execucao.n2 = ""
+        execucao.n1 = 0
+        execucao.n2 = 0
         execucao.sinal = ""
         execucao.limite = 0
     },
