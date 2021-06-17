@@ -37,14 +37,15 @@ const envia = {
             } else if (execucao.andamento == true && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && execucao.n2 == 0 && numero != 0) {
+            } else if (execucao.andamento == true && numeroVisor == 0 && numero != 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
                 execucao.limite = execucao.limite + 1
             } else if (execucao.andamento == true && numero != 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && execucao.n2 != 0) {
+                execucao.limite = execucao.limite + 1
+            } else if (execucao.andamento == true && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
@@ -117,12 +118,12 @@ const limpar = {
 
 const operacao = {
     matematica : function(operador) {
-        if (execucao.n1 != "") {
+        if (execucao.n1 != "" || execucao.n1 != null) {
             reconfig.matematica(operador)
         } 
     },
     igual : function() {
-        if (execucao.n1 != "" && execucao.sinal != "") {
+        if (execucao.n1 != "" && execucao.sinal != "" || execucao.n1 != null && execucao.sinal != "") {
             let {x, y} = reconfig.valores()
             if (execucao.sinal == "+") {
                 let numero = x + y
