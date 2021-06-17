@@ -124,26 +124,29 @@ const limpar = {
 
 const operacao = {
     matematica : function(operador) {
-        if (execucao.n1 != "" || execucao.n1 != null) {
+        if (execucao.n1 != "" && execucao.andamento == false || execucao.n1 != null && execucao.andamento == false)  {
             reconfig.matematica(operador)
-        } 
+        } else if (execucao.andamento == true && execucao.limite != 0) {
+            let resposta = operacao.calculando()
+            reconfig.matematica_E_igual(resposta)
+        }
     },
     igual : function() {
         if (execucao.n1 != "" && execucao.sinal != "" || execucao.n1 != null && execucao.sinal != "") {
-            let {x, y} = reconfig.valores()
-            if (execucao.sinal == "+") {
-                let numero = x + y
-                reconfig.igual(numero)
-            } else if (execucao.sinal == "-") {
-                let numero = x - y
-                reconfig.igual(numero)
-            } else if (execucao.sinal == "*") {
-                let numero = x * y
-                reconfig.igual(numero)
-            } else if (execucao.sinal == "/") {
-                let numero = x / y
-                reconfig.igual(numero)
-            }
+            let resultado = operacao.calculando()
+            reconfig.igual(resultado)
+        }
+    },
+    calculando : function() {
+        let {x, y} = reconfig.valores()
+        if (execucao.sinal == "+") {
+            return numero = x + y
+        } else if (execucao.sinal == "-") {
+            return numero = x - y
+        } else if (execucao.sinal == "*") {
+            return numero = x * y
+        } else if (execucao.sinal == "/") {
+            return numero = x / y
         }
     }
 }
@@ -161,13 +164,20 @@ const reconfig = {
         execucao.n1 = numero
         execucao.limite = 0
    },
+    matematica_E_igual : function(){
+        visor.atualiza(resposta)
+        execucao.andamento = true
+        execucao.n1 = resposta
+        execucao.n2 = 0
+        execucao.sinal = operador
+        execucao.limite = 0
+   },
    valores : function() {
         if (execucao.n2 == 0) { execucao.n2 = execucao.n1 }
         let x = parses(execucao.n1)                         
         let y = parses(execucao.n2)
         return {x, y}         
    }
-
 }
 
 function fatiar(numeroVisor) {
