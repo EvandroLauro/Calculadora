@@ -27,7 +27,7 @@ const envia = {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == false && numeroVisor != "0") {
+            } else if (execucao.andamento == false && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
@@ -74,7 +74,7 @@ const envia = {
 
 const limpar = {
     ce : function() {
-        visor.atualiza("0")
+        visor.atualiza(0)
         execucao.andamento = false
         execucao.n1 = ""
         execucao.n2 = ""
@@ -87,8 +87,8 @@ const limpar = {
             let fatiado = fatiar(numeroVisor)
             if (execucao.andamento == false) {
                 if (numeroVisor.length == 1) {
-                    visor.atualiza("0")
-                    execucao.n1 = "0"
+                    visor.atualiza(0)
+                    execucao.n1 = 0
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
@@ -97,8 +97,8 @@ const limpar = {
                 }
             } else if (execucao.andamento == true) {
                 if (numeroVisor.length == 1) {
-                    visor.atualiza("0")
-                    execucao.n2 = "0"
+                    visor.atualiza(0)
+                    execucao.n2 = 0
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
@@ -113,44 +113,50 @@ const limpar = {
 const operacao = {
     matematica : function(operador) {
         if (execucao.n1 != "") {
-            execucao.andamento = true
-            execucao.n2 = 0
-            execucao.sinal = operador
-            execucao.limite = 0
+            reconfig.matematica(operador)
         } 
     },
     igual : function() {
         if (execucao.n1 != "" && execucao.sinal != "") {
-            if (execucao.n2 == 0) { execucao.n2 = execucao.n1 }
-            let x = parses(execucao.n1)
-            let y = parses(execucao.n2)
+            let {x, y} = reconfig.valores(execucao.n1, execucao.n2)
             if (execucao.sinal == "+") {
                 let numero = x + y
-                visor.atualiza(numero)
-                execucao.andamento = false
-                execucao.n1 = numero
-                execucao.limite = 0
+                reconfig.igual(numero)
             } else if (execucao.sinal == "-") {
                 let numero = x - y
                 visor.atualiza(numero)
-                execucao.andamento = false
-                execucao.n1 = numero
-                execucao.limite = 0
+                reconfig.igual(numero)
             } else if (execucao.sinal == "*") {
                 let numero = x * y
-                visor.atualiza(numero)
-                execucao.andamento = false
-                execucao.n1 = numero
-                execucao.limite = 0
+                reconfig.igual(numero)
             } else if (execucao.sinal == "/") {
                 let numero = x / y
-                visor.atualiza(numero)
-                execucao.andamento = false
-                execucao.n1 = numero
-                execucao.limite = 0
+                reconfig.igual(numero)
             }
         }
     }
+}
+
+const reconfig = {
+    matematica : function(operador) {
+        execucao.andamento = true
+        execucao.n2 = 0
+        execucao.sinal = operador
+        execucao.limite = 0
+    },
+    igual : function(numero) {
+        visor.atualiza(numero)
+        execucao.andamento = false
+        execucao.n1 = numero
+        execucao.limite = 0
+   },
+   valores : function(n1, n2) {
+        if (n2 == 0) { n2 = n1 }
+        let x = parses(n1)                         
+        let y = parses(n2)
+        return {x, y}         
+   }
+
 }
 
 function fatiar(numeroVisor) {
@@ -159,7 +165,7 @@ function fatiar(numeroVisor) {
     return numeroVisor.slice(0, tamanhanhoDoCorte)
 }
 
-function parses(numero) {
+function parses(numero) { 
     if (typeof numero === 'number') {
         return numero
     } else if (numero.indexOf(".") == -1) {
