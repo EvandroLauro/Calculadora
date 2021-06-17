@@ -136,7 +136,6 @@ const operacao = {
                 reconfig.igual(numero)
             } else if (execucao.sinal == "-") {
                 let numero = x - y
-                visor.atualiza(numero)
                 reconfig.igual(numero)
             } else if (execucao.sinal == "*") {
                 let numero = x * y
