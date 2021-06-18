@@ -60,30 +60,32 @@ const envia = {
             }
         }
     },
-    /*
     ponto : function(ponto) {
         let numeroVisor = visor.exibido()
-        if (execucao.ponto == false) {
+        if (execucao.ponto == false && execucao.sinal == "") {
             if (execucao.n1 == 0 || execucao.n1 == 0 && execucao.limite == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n1 = 0 + ponto
+                execucao.ponto = true
                 execucao.limite = execucao.limite + 1
             }else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n1 = numeroVisor + ponto
+                execucao.ponto = true
             }
-        } else {
+        } else if (execucao.ponto == true && execucao.sinal != "") {
             if (execucao.n2 == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n2 = 0 + ponto
+                execucao.ponto = false
                 execucao.limite = execucao.limite + 1
             } else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n2 = numeroVisor + ponto
+                execucao.ponto = false
             }
         }
     }
-    */
 };
 
 const limpar = {
@@ -99,25 +101,38 @@ const limpar = {
         if (execucao.limite > 0) {
             let numeroVisor = visor.exibido()
             let fatiado = fatiar(numeroVisor)
+            let ult = numeroVisor.substr(-1, 1)
             if (execucao.sinal == "") {
-                if (numeroVisor.length == 1) {
+                if (numeroVisor.length == 1 || numeroVisor == "0.") {
                     visor.atualiza(0)
                     execucao.n1 = 0
+                    execucao.ponto = false
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
-                    execucao.n1 = fatiado
-                    execucao.limite = execucao.limite - 1
+                    if (ult != ".") {
+                        execucao.n1 = fatiado
+                        execucao.limite = execucao.limite - 1
+                    } else if (ult == ".") {
+                        execucao.n1 = fatiado
+                        execucao.ponto = false
+                    }
                 }
             } else if (execucao.sinal != "") {
-                if (numeroVisor.length == 1) {
+                if (numeroVisor.length == 1 || numeroVisor == "0.") {
                     visor.atualiza(0)
                     execucao.n2 = 0
+                    execucao.ponto = true
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
-                    execucao.n2 = fatiado
-                    execucao.limite = execucao.limite - 1
+                    if (ult != ".") {
+                        execucao.n2 = fatiado
+                        execucao.limite = execucao.limite - 1
+                    } else if (ult == ".") {
+                        execucao.n2 = fatiado
+                        execucao.ponto = true
+                    }
                 }
             }
         }
@@ -160,6 +175,7 @@ const operacao = {
 const reconfig = {
     matematica : function(operador) {
         execucao.n2 = 0
+        execucao.ponto = true
         execucao.sinal = operador
         execucao.limite = 0
     },
@@ -173,7 +189,7 @@ const reconfig = {
         visor.atualiza(numero)
         execucao.n1 = numero
         execucao.n2 = 0
-        execucao.ponto = false
+        execucao.ponto = true
         execucao.sinal = operador
         execucao.limite = 0
    },
