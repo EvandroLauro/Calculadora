@@ -1,7 +1,7 @@
 const execucao = {
-    andamento : false,
     n1 : 0,
     n2 : 0,
+    ponto : false,
     sinal : "",
     limite : 0,
 }
@@ -19,51 +19,52 @@ const envia = {
     numero : function(numero) {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
-            if (execucao.andamento == false && numero == 0 && execucao.limite == 0) {
+            if (execucao.sinal == "" && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
-            } else if (execucao.andamento == false && numeroVisor == 0 && execucao.limite == 0) {
-                visor.atualiza(numero)
-                execucao.n1 = numero
-                execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == false && numero != 0 && execucao.limite == 0) {
+            } else if (execucao.sinal == "" && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == false && numeroVisor == "0.") {
+            } else if (execucao.sinal == "" && numero != 0 && execucao.limite == 0) {
+                visor.atualiza(numero)
+                execucao.n1 = numero
+                execucao.limite = execucao.limite + 1
+            } else if (execucao.sinal == "" && numeroVisor == "0.") {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == false && numeroVisor != 0) {
+            } else if (execucao.sinal == "" && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && numero == 0 && execucao.limite == 0) {
+            } else if (execucao.sinal != "" && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.andamento == true && numeroVisor == 0 && execucao.limite == 0) {
-                visor.atualiza(numero)
-                execucao.n2 = numero
-                execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && numero != 0 && execucao.limite == 0) {
+            } else if (execucao.sinal != "" && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && numeroVisor == "0.") {
+            } else if (execucao.sinal != "" && numero != 0 && execucao.limite == 0) {
+                visor.atualiza(numero)
+                execucao.n2 = numero
+                execucao.limite = execucao.limite + 1
+            } else if (execucao.sinal != "" && numeroVisor == "0.") {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.andamento == true && numeroVisor != 0) {
+            } else if (execucao.sinal != "" && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
             }
         }
     },
+    /*
     ponto : function(ponto) {
         let numeroVisor = visor.exibido()
-        if (execucao.andamento == false) {
-            if (execucao.n1 == 0 || execucao.limite == 0) {
+        if (execucao.ponto == false) {
+            if (execucao.n1 == 0 || execucao.n1 == 0 && execucao.limite == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n1 = 0 + ponto
                 execucao.limite = execucao.limite + 1
@@ -82,14 +83,15 @@ const envia = {
             }
         }
     }
+    */
 };
 
 const limpar = {
     ce : function() {
         visor.atualiza(0)
-        execucao.andamento = false
         execucao.n1 = 0
         execucao.n2 = 0
+        execucao.ponto = false
         execucao.sinal = ""
         execucao.limite = 0
     },
@@ -97,7 +99,7 @@ const limpar = {
         if (execucao.limite > 0) {
             let numeroVisor = visor.exibido()
             let fatiado = fatiar(numeroVisor)
-            if (execucao.andamento == false) {
+            if (execucao.sinal == "") {
                 if (numeroVisor.length == 1) {
                     visor.atualiza(0)
                     execucao.n1 = 0
@@ -107,7 +109,7 @@ const limpar = {
                     execucao.n1 = fatiado
                     execucao.limite = execucao.limite - 1
                 }
-            } else if (execucao.andamento == true) {
+            } else if (execucao.sinal != "") {
                 if (numeroVisor.length == 1) {
                     visor.atualiza(0)
                     execucao.n2 = 0
@@ -124,11 +126,15 @@ const limpar = {
 
 const operacao = {
     matematica : function(operador) {
-        if (execucao.n1 != "" && execucao.andamento == false || execucao.n1 != null && execucao.andamento == false)  {
+        if (execucao.n1 == 0) {
             reconfig.matematica(operador)
-        } else if (execucao.andamento == true && execucao.limite != 0) {
+        } else if (execucao.sinal == "")  {
+            reconfig.matematica(operador)
+        } else if (execucao.limite == 0) {
+            reconfig.matematica(operador)
+        } else if (execucao.sinal != "" && execucao.limite != 0) {
             let resposta = operacao.calculando()
-            reconfig.matematica_E_igual(resposta)
+            reconfig.matematica_E_igual(resposta, operador)
         }
     },
     igual : function() {
@@ -153,22 +159,21 @@ const operacao = {
 
 const reconfig = {
     matematica : function(operador) {
-        execucao.andamento = true
         execucao.n2 = 0
         execucao.sinal = operador
         execucao.limite = 0
     },
     igual : function(numero) {
         visor.atualiza(numero)
-        execucao.andamento = false
         execucao.n1 = numero
+        execucao.ponto = false
         execucao.limite = 0
    },
-    matematica_E_igual : function(){
-        visor.atualiza(resposta)
-        execucao.andamento = true
-        execucao.n1 = resposta
+    matematica_E_igual : function(numero, operador){
+        visor.atualiza(numero)
+        execucao.n1 = numero
         execucao.n2 = 0
+        execucao.ponto = false
         execucao.sinal = operador
         execucao.limite = 0
    },
