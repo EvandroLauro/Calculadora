@@ -132,7 +132,7 @@ const operacao = {
             reconfig.matematica(operador)
         } else if (execucao.limite == 0) {
             reconfig.matematica(operador)
-        } else if (execucao.sinal != "" && execucao.limite != 0) {
+        } else if (execucao.sinal != "") {
             let resposta = operacao.calculando()
             reconfig.matematica_E_igual(resposta, operador)
         }
