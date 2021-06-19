@@ -1,7 +1,9 @@
 const execucao = {
+    status : false,
     n1 : 0,
     n2 : 0,
-    ponto : false,
+    pontoN1 : false,
+    pontoN2: false,
     sinal : "",
     limite : 0,
 }
@@ -19,41 +21,44 @@ const envia = {
     numero : function(numero) {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
-            if (execucao.sinal == "" && numero == 0 && execucao.limite == 0) {
+
+            if (execucao.status == false  && execucao.limite == 0) {execucao.n2 = 0}
+
+            if (execucao.status == false && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
-            } else if (execucao.sinal == "" && numeroVisor == 0 && execucao.limite == 0) {
+            } else if (execucao.status == false && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal == "" && numero != 0 && execucao.limite == 0) {
+            } else if (execucao.status == false && numero != 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal == "" && numeroVisor == "0.") {
+            } else if (execucao.status == false && numeroVisor == "0.") {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal == "" && numeroVisor != 0) {
+            } else if (execucao.status == false && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n1 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal != "" && numero == 0 && execucao.limite == 0) {
+            } else if (execucao.status == true && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
-            } else if (execucao.sinal != "" && numeroVisor == 0 && execucao.limite == 0) {
-                visor.atualiza(numero)
-                execucao.n2 = numero
-                execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal != "" && numero != 0 && execucao.limite == 0) {
+            } else if (execucao.status == true && numeroVisor == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n2 = numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal != "" && numeroVisor == "0.") {
+            } else if (execucao.status == true && numero != 0 && execucao.limite == 0) {
+                visor.atualiza(numero)
+                execucao.n2 = numero
+                execucao.limite = execucao.limite + 1
+            } else if (execucao.status == true && numeroVisor == "0.") {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
-            } else if (execucao.sinal != "" && numeroVisor != 0) {
+            } else if (execucao.status == true && numeroVisor != 0) {
                 visor.atualiza(numeroVisor + numero)
                 execucao.n2 = numeroVisor + numero
                 execucao.limite = execucao.limite + 1
@@ -62,27 +67,27 @@ const envia = {
     },
     ponto : function(ponto) {
         let numeroVisor = visor.exibido()
-        if (execucao.ponto == false && execucao.sinal == "") {
+        if (execucao.pontoN1 == false && execucao.status == false) {
             if (execucao.n1 == 0 || execucao.n1 == 0 && execucao.limite == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n1 = 0 + ponto
-                execucao.ponto = true
+                execucao.pontoN1 = true
                 execucao.limite = execucao.limite + 1
             }else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n1 = numeroVisor + ponto
-                execucao.ponto = true
+                execucao.pontoN1 = true
             }
-        } else if (execucao.ponto == true && execucao.sinal != "") {
+        } else if (execucao.pontoN2 == false && execucao.status != false) {
             if (execucao.n2 == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n2 = 0 + ponto
-                execucao.ponto = false
+                execucao.pontoN2 = true
                 execucao.limite = execucao.limite + 1
             } else if (numeroVisor.indexOf(ponto) == -1) {
                 visor.atualiza(numeroVisor + ponto)
                 execucao.n2 = numeroVisor + ponto
-                execucao.ponto = false
+                execucao.pontoN2 = true
             }
         }
     }
@@ -91,9 +96,11 @@ const envia = {
 const limpar = {
     ce : function() {
         visor.atualiza(0)
+        execucao.status = false
         execucao.n1 = 0
         execucao.n2 = 0
-        execucao.ponto = false
+        execucao.pontoN1 = false
+        execucao.pontoN2 = false
         execucao.sinal = ""
         execucao.limite = 0
     },
@@ -101,37 +108,37 @@ const limpar = {
         if (execucao.limite > 0) {
             let numeroVisor = visor.exibido()
             let fatiado = fatiar(numeroVisor)
-            let ult = numeroVisor.substr(-1, 1)
-            if (execucao.sinal == "") {
+            let ultimo = numeroVisor.substr(-1, 1)
+            if (execucao.status == false) {
                 if (numeroVisor.length == 1 || numeroVisor == "0.") {
                     visor.atualiza(0)
                     execucao.n1 = 0
-                    execucao.ponto = false
+                    execucao.pontoN1 = false
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
-                    if (ult != ".") {
+                    if (ultimo != ".") {
                         execucao.n1 = fatiado
                         execucao.limite = execucao.limite - 1
-                    } else if (ult == ".") {
+                    } else if (ultimo == ".") {
                         execucao.n1 = fatiado
-                        execucao.ponto = false
+                        execucao.pontoN1 = false
                     }
                 }
-            } else if (execucao.sinal != "") {
+            } else if (execucao.status == true) {
                 if (numeroVisor.length == 1 || numeroVisor == "0.") {
                     visor.atualiza(0)
                     execucao.n2 = 0
-                    execucao.ponto = true
+                    execucao.pontoN2 = false
                     execucao.limite = execucao.limite - 1
                 } else {
                     visor.atualiza(fatiado)
-                    if (ult != ".") {
+                    if (ultimo != ".") {
                         execucao.n2 = fatiado
                         execucao.limite = execucao.limite - 1
-                    } else if (ult == ".") {
+                    } else if (ultimo == ".") {
                         execucao.n2 = fatiado
-                        execucao.ponto = true
+                        execucao.pontoN2 = false
                     }
                 }
             }
@@ -174,22 +181,25 @@ const operacao = {
 
 const reconfig = {
     matematica : function(operador) {
+        execucao.status = true
         execucao.n2 = 0
-        execucao.ponto = true
+        execucao.pontoN1 = false
         execucao.sinal = operador
         execucao.limite = 0
     },
     igual : function(numero) {
         visor.atualiza(numero)
+        execucao.status = false
         execucao.n1 = numero
-        execucao.ponto = false
+        execucao.pontoN1 = false
+        execucao.pontoN2 = false
         execucao.limite = 0
    },
     matematica_E_igual : function(numero, operador){
         visor.atualiza(numero)
         execucao.n1 = numero
         execucao.n2 = 0
-        execucao.ponto = true
+        execucao.status = true
         execucao.sinal = operador
         execucao.limite = 0
    },
