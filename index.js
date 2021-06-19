@@ -22,8 +22,6 @@ const envia = {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
 
-            //if (execucao.status == false  && execucao.limite == 0) {execucao.n2 = 0}
-
             if (execucao.status == false && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
@@ -154,9 +152,11 @@ const operacao = {
             reconfig.matematica(operador)
         } else if (execucao.limite == 0) {
             reconfig.matematica(operador)
-        } else if (execucao.sinal != "") {
+        } else if (execucao.sinal != "" && execucao.status != false) {
             let resposta = operacao.calculando()
             reconfig.matematica_E_igual(resposta, operador)
+        } else {
+            reconfig.matematica(operador)
         }
     },
     igual : function() {
