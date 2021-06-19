@@ -22,7 +22,7 @@ const envia = {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
 
-            if (execucao.status == false  && execucao.limite == 0) {execucao.n2 = 0}
+            //if (execucao.status == false  && execucao.limite == 0) {execucao.n2 = 0}
 
             if (execucao.status == false && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
