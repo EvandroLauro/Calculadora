@@ -21,7 +21,6 @@ const envia = {
     numero : function(numero) {
         if (execucao.limite < 8) {           
             let numeroVisor = visor.exibido()
-
             if (execucao.status == false && numero == 0 && execucao.limite == 0) {
                 visor.atualiza(numero)
                 execucao.n1 = numero
@@ -66,7 +65,7 @@ const envia = {
     ponto : function(ponto) {
         let numeroVisor = visor.exibido()
         if (execucao.pontoN1 == false && execucao.status == false) {
-            if (execucao.n1 == 0 || execucao.n1 == 0 && execucao.limite == 0) {
+            if (execucao.limite == 0 || execucao.n1 == 0 || execucao.n1 == 0 && execucao.limite == 0) {
                 visor.atualiza(0 + ponto)
                 execucao.n1 = 0 + ponto
                 execucao.pontoN1 = true
